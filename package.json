@@ -1,0 +1,34 @@
+{
+  "name": "emmet-ui-prototype",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "latest",
+    "@testing-library/react": "latest",
+    "@types/jest": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "jest": "latest",
+    "jest-environment-jsdom": "latest",
+    "ts-jest": "latest",
+    "typescript": "latest"
+  },
+  "overrides": {
+    "deepmerge": "4.1.1",
+    "glob": "14.0.6",
+    "minimatch": "11.0.8"
+  }
+}

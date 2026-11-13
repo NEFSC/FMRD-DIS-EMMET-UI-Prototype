@@ -1,0 +1,168 @@
+:root {
+  font-family: 'Segoe UI', sans-serif;
+  color: #172a32;
+  background: #f5f7f6;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+  font-weight: 400;
+
+  --ink: #172a32;
+  --muted: #718087;
+  --accent: #147d78;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+.page {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  padding: 0 7.2%;
+  background:
+    radial-gradient(ellipse at 86% 37%, rgb(208 230 222 / 45%), transparent 29%),
+    #f5f7f6;
+}
+
+.topbar {
+  display: flex;
+  height: 88px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e4e9e7;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--ink);
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  width: 31px;
+  height: 31px;
+  place-items: center;
+  border-radius: 9px;
+  background: var(--accent);
+  color: white;
+  font-size: 17px;
+  letter-spacing: 0;
+}
+
+.prototype-label,
+.eyebrow {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.welcome {
+  width: min(100%, 760px);
+  margin: auto;
+  padding: 100px 0 120px;
+}
+
+.eyebrow {
+  margin: 0 0 20px;
+}
+
+h1 {
+  max-width: 650px;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: clamp(42px, 7vw, 76px);
+  font-weight: 600;
+  letter-spacing: -0.065em;
+  line-height: 1.08;
+}
+
+.welcome-copy {
+  max-width: 500px;
+  margin: 25px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.welcome-note {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 12px;
+  margin-top: 40px;
+  padding: 14px 18px;
+  border: 1px solid #e3eae7;
+  border-radius: 12px;
+  background: rgb(255 255 255 / 70%);
+  color: #43565d;
+  font-size: 13px;
+}
+
+.welcome-note p {
+  margin: 0;
+}
+
+.note-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #53a78b;
+  box-shadow: 0 0 0 4px #e6f3ed;
+}
+
+.footer {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #e4e9e7;
+  color: #889498;
+  font-size: 11px;
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding: 0 24px;
+  }
+
+  .topbar {
+    height: 72px;
+  }
+
+  .welcome {
+    padding: 80px 0;
+  }
+
+  .welcome-copy {
+    font-size: 15px;
+  }
+
+  .footer {
+    gap: 16px;
+    font-size: 10px;
+  }
+}
