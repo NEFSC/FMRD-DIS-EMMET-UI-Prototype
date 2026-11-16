@@ -1,0 +1,506 @@
+{
+  "synthetic": true,
+  "description": "Ground-truth labels for the synthetic contract-shaped sample results.",
+  "submissions": [
+    {
+      "submission_id": "submission_001",
+      "fish_id": "FISH-001",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_002",
+      "fish_id": "FISH-002",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_003",
+      "fish_id": "FISH-003",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_004",
+      "fish_id": "FISH-004",
+      "actual_species": "yellowtail_flounder"
+    },
+    {
+      "submission_id": "submission_005",
+      "fish_id": "FISH-005",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_006",
+      "fish_id": "FISH-006",
+      "actual_species": "yellowtail_flounder"
+    },
+    {
+      "submission_id": "submission_007",
+      "fish_id": "FISH-007",
+      "actual_species": "witch_flounder"
+    },
+    {
+      "submission_id": "submission_008",
+      "fish_id": "FISH-008",
+      "actual_species": "yellowtail_flounder"
+    },
+    {
+      "submission_id": "submission_009",
+      "fish_id": "FISH-009",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_010",
+      "fish_id": "FISH-010",
+      "actual_species": "witch_flounder"
+    },
+    {
+      "submission_id": "submission_011",
+      "fish_id": "FISH-011",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_012",
+      "fish_id": "FISH-012",
+      "actual_species": "winter_flounder"
+    },
+    {
+      "submission_id": "submission_013",
+      "fish_id": "FISH-013",
+      "actual_species": "winter_flounder"
+    },
+    {
+      "submission_id": "submission_014",
+      "fish_id": "FISH-014",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_015",
+      "fish_id": "FISH-015",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_016",
+      "fish_id": "FISH-016",
+      "actual_species": "yellowtail_flounder"
+    },
+    {
+      "submission_id": "submission_017",
+      "fish_id": "FISH-017",
+      "actual_species": "yellowtail_flounder"
+    },
+    {
+      "submission_id": "submission_018",
+      "fish_id": "FISH-018",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_019",
+      "fish_id": "FISH-019",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_020",
+      "fish_id": "FISH-020",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_021",
+      "fish_id": "FISH-021",
+      "actual_species": "witch_flounder"
+    },
+    {
+      "submission_id": "submission_022",
+      "fish_id": "FISH-022",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_023",
+      "fish_id": "FISH-023",
+      "actual_species": "witch_flounder"
+    },
+    {
+      "submission_id": "submission_024",
+      "fish_id": "FISH-024",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_025",
+      "fish_id": "FISH-025",
+      "actual_species": "winter_flounder"
+    },
+    {
+      "submission_id": "submission_026",
+      "fish_id": "FISH-026",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_027",
+      "fish_id": "FISH-027",
+      "actual_species": "yellowtail_flounder"
+    },
+    {
+      "submission_id": "submission_028",
+      "fish_id": "FISH-028",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_029",
+      "fish_id": "FISH-029",
+      "actual_species": "witch_flounder"
+    },
+    {
+      "submission_id": "submission_030",
+      "fish_id": "FISH-030",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_031",
+      "fish_id": "FISH-031",
+      "actual_species": "winter_flounder"
+    },
+    {
+      "submission_id": "submission_032",
+      "fish_id": "FISH-032",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_033",
+      "fish_id": "FISH-033",
+      "actual_species": "winter_flounder"
+    },
+    {
+      "submission_id": "submission_034",
+      "fish_id": "FISH-034",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_035",
+      "fish_id": "FISH-035",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_036",
+      "fish_id": "FISH-036",
+      "actual_species": "winter_flounder"
+    },
+    {
+      "submission_id": "submission_037",
+      "fish_id": "FISH-037",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_038",
+      "fish_id": "FISH-038",
+      "actual_species": "witch_flounder"
+    },
+    {
+      "submission_id": "submission_039",
+      "fish_id": "FISH-039",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_040",
+      "fish_id": "FISH-040",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_041",
+      "fish_id": "FISH-041",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_042",
+      "fish_id": "FISH-042",
+      "actual_species": "witch_flounder"
+    },
+    {
+      "submission_id": "submission_043",
+      "fish_id": "FISH-043",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_044",
+      "fish_id": "FISH-044",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_045",
+      "fish_id": "FISH-045",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_046",
+      "fish_id": "FISH-046",
+      "actual_species": "yellowtail_flounder"
+    },
+    {
+      "submission_id": "submission_047",
+      "fish_id": "FISH-047",
+      "actual_species": "yellowtail_flounder"
+    },
+    {
+      "submission_id": "submission_048",
+      "fish_id": "FISH-048",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_049",
+      "fish_id": "FISH-049",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_050",
+      "fish_id": "FISH-050",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_051",
+      "fish_id": "FISH-051",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_052",
+      "fish_id": "FISH-052",
+      "actual_species": "witch_flounder"
+    },
+    {
+      "submission_id": "submission_053",
+      "fish_id": "FISH-053",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_054",
+      "fish_id": "FISH-054",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_055",
+      "fish_id": "FISH-055",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_056",
+      "fish_id": "FISH-056",
+      "actual_species": "winter_flounder"
+    },
+    {
+      "submission_id": "submission_057",
+      "fish_id": "FISH-057",
+      "actual_species": "yellowtail_flounder"
+    },
+    {
+      "submission_id": "submission_058",
+      "fish_id": "FISH-058",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_059",
+      "fish_id": "FISH-059",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_060",
+      "fish_id": "FISH-060",
+      "actual_species": "winter_flounder"
+    },
+    {
+      "submission_id": "submission_061",
+      "fish_id": "FISH-061",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_062",
+      "fish_id": "FISH-062",
+      "actual_species": "yellowtail_flounder"
+    },
+    {
+      "submission_id": "submission_063",
+      "fish_id": "FISH-063",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_064",
+      "fish_id": "FISH-064",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_065",
+      "fish_id": "FISH-065",
+      "actual_species": "winter_flounder"
+    },
+    {
+      "submission_id": "submission_066",
+      "fish_id": "FISH-066",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_067",
+      "fish_id": "FISH-067",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_068",
+      "fish_id": "FISH-068",
+      "actual_species": "yellowtail_flounder"
+    },
+    {
+      "submission_id": "submission_069",
+      "fish_id": "FISH-069",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_070",
+      "fish_id": "FISH-070",
+      "actual_species": "winter_flounder"
+    },
+    {
+      "submission_id": "submission_071",
+      "fish_id": "FISH-071",
+      "actual_species": "witch_flounder"
+    },
+    {
+      "submission_id": "submission_072",
+      "fish_id": "FISH-072",
+      "actual_species": "yellowtail_flounder"
+    },
+    {
+      "submission_id": "submission_073",
+      "fish_id": "FISH-073",
+      "actual_species": "yellowtail_flounder"
+    },
+    {
+      "submission_id": "submission_074",
+      "fish_id": "FISH-074",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_075",
+      "fish_id": "FISH-075",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_076",
+      "fish_id": "FISH-076",
+      "actual_species": "winter_flounder"
+    },
+    {
+      "submission_id": "submission_077",
+      "fish_id": "FISH-077",
+      "actual_species": "yellowtail_flounder"
+    },
+    {
+      "submission_id": "submission_078",
+      "fish_id": "FISH-078",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_079",
+      "fish_id": "FISH-079",
+      "actual_species": "winter_flounder"
+    },
+    {
+      "submission_id": "submission_080",
+      "fish_id": "FISH-080",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_081",
+      "fish_id": "FISH-081",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_082",
+      "fish_id": "FISH-082",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_083",
+      "fish_id": "FISH-083",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_084",
+      "fish_id": "FISH-084",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_085",
+      "fish_id": "FISH-085",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_086",
+      "fish_id": "FISH-086",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_087",
+      "fish_id": "FISH-087",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_088",
+      "fish_id": "FISH-088",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_089",
+      "fish_id": "FISH-089",
+      "actual_species": "haddock"
+    },
+    {
+      "submission_id": "submission_090",
+      "fish_id": "FISH-090",
+      "actual_species": "witch_flounder"
+    },
+    {
+      "submission_id": "submission_091",
+      "fish_id": "FISH-091",
+      "actual_species": "winter_flounder"
+    },
+    {
+      "submission_id": "submission_092",
+      "fish_id": "FISH-092",
+      "actual_species": "winter_flounder"
+    },
+    {
+      "submission_id": "submission_093",
+      "fish_id": "FISH-093",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_094",
+      "fish_id": "FISH-094",
+      "actual_species": "witch_flounder"
+    },
+    {
+      "submission_id": "submission_095",
+      "fish_id": "FISH-095",
+      "actual_species": "winter_flounder"
+    },
+    {
+      "submission_id": "submission_096",
+      "fish_id": "FISH-096",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_097",
+      "fish_id": "FISH-097",
+      "actual_species": "atlantic_cod"
+    },
+    {
+      "submission_id": "submission_098",
+      "fish_id": "FISH-098",
+      "actual_species": "witch_flounder"
+    },
+    {
+      "submission_id": "submission_099",
+      "fish_id": "FISH-099",
+      "actual_species": "summer_flounder"
+    },
+    {
+      "submission_id": "submission_100",
+      "fish_id": "FISH-100",
+      "actual_species": "winter_flounder"
+    }
+  ]
+}

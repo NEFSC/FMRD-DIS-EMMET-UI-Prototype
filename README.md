@@ -20,3 +20,16 @@ npm run dev
 - `npm run build` type-checks the app and creates a production build in `dist/`.
 - `npm test` runs the Jest test suite.
 - `npm run test:watch` runs Jest in watch mode.
+
+## Example test data
+
+The UI reads six contract-shaped sample batches from
+[`src/data/fish-test-results.json`](./src/data/fish-test-results.json). Each
+batch contains 100 submissions with `method`, species classification and
+confidence, length in centimeters, and errors. The model and run are encoded in
+`run_id` (for example, `batch_9942_cvision_run_1`).
+
+Ground-truth species labels used for comparison are kept separately in
+[`src/data/fish-test-labels.json`](./src/data/fish-test-labels.json), so the
+results file keeps the API contract shape. Data is synthetic; Haddock replaces
+Pacific cod in the examples.
