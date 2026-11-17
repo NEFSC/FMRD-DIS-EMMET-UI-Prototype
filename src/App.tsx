@@ -7,7 +7,10 @@ const batches = sampleResults as FishResultsBatch[];
 const models = [
   { id: 'cvision', name: 'Cvision' },
   { id: 'im', name: 'IM' },
-];
+] as const;
+type ModelId = (typeof models)[number]['id'];
+type ViewMode = 'administrator' | ModelId;
+
 const initialModelId = models[0].id;
 const initialRunId = batches.find((batch) =>
   batch.run_id.startsWith(`batch_9942_${initialModelId}_run_`),
@@ -58,8 +61,12 @@ function formatRunLabel(runId: string) {
 }
 
 function App() {
-  const [selectedModelId, setSelectedModelId] = useState<string>(initialModelId);
+  const [viewMode, setViewMode] = useState<ViewMode>('administrator');
+  const [administratorModelId, setAdministratorModelId] =
+    useState<ModelId>(initialModelId);
   const [selectedRunId, setSelectedRunId] = useState(initialRunId);
+  const selectedModelId =
+    viewMode === 'administrator' ? administratorModelId : viewMode;
   const modelRuns = batches.filter((batch) =>
     batch.run_id.startsWith(`batch_9942_${selectedModelId}_run_`),
   );
@@ -70,7 +77,7 @@ function App() {
 
   if (!selectedModel || !selectedRun) {
     throw new Error(
-      `No run "${selectedRunId}" found for model "${selectedModelId}".`,
+      `Invalid model or run selection: "${selectedModelId}", "${selectedRunId}".`,
     );
   }
 
@@ -102,7 +109,9 @@ function App() {
     ? (correctCount / results.length) * 100
     : 0;
 
-  const handleModelChange = (modelId: string) => {
+  const handleViewChange = (view: ViewMode) => {
+    const modelId =
+      view === 'administrator' ? administratorModelId : view;
     const firstRun = batches.find((batch) =>
       batch.run_id.startsWith(`batch_9942_${modelId}_run_`),
     );
@@ -111,7 +120,26 @@ function App() {
       throw new Error(`No runs found for model "${modelId}".`);
     }
 
-    setSelectedModelId(modelId);
+    setSelectedRunId(firstRun.run_id);
+    setViewMode(view);
+  };
+
+  const handleAdministratorModelChange = (modelId: string) => {
+    const model = models.find((item) => item.id === modelId);
+
+    if (!model) {
+      throw new Error(`Unknown model "${modelId}".`);
+    }
+
+    const firstRun = batches.find((batch) =>
+      batch.run_id.startsWith(`batch_9942_${model.id}_run_`),
+    );
+
+    if (!firstRun) {
+      throw new Error(`No runs found for model "${model.id}".`);
+    }
+
+    setAdministratorModelId(model.id);
     setSelectedRunId(firstRun.run_id);
   };
 
@@ -137,26 +165,65 @@ function App() {
           </p>
         </div>
 
+        <ul
+          className="view-switch usa-button-group usa-button-group--segmented"
+          role="group"
+          aria-label="Results view"
+        >
+          <li className="usa-button-group__item">
+            <button
+              type="button"
+              className={`usa-button ${
+                viewMode === 'administrator' ? '' : 'usa-button--outline'
+              }`}
+              aria-pressed={viewMode === 'administrator'}
+              onClick={() => handleViewChange('administrator')}
+            >
+              Administrator
+            </button>
+          </li>
+          {models.map((model) => (
+            <li key={model.id} className="usa-button-group__item">
+              <button
+                type="button"
+                className={`usa-button ${
+                  viewMode === model.id ? '' : 'usa-button--outline'
+                }`}
+                aria-pressed={viewMode === model.id}
+                onClick={() => handleViewChange(model.id)}
+              >
+                {model.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+
         <div className="results-toolbar">
           <div className="filters">
-            <label className="filter">
-              <span>Model</span>
-              <select
-                aria-label="Model"
-                value={selectedModelId}
-                onChange={(event) => handleModelChange(event.currentTarget.value)}
-              >
-                {models.map((model) => (
-                  <option key={model.id} value={model.id}>
-                    {model.name}
-                  </option>
-                ))}
-              </select>
-            </label>
+            {viewMode === 'administrator' && (
+              <label className="filter">
+                <span className="usa-label">Model</span>
+                <select
+                  className="usa-select"
+                  aria-label="Model"
+                  value={selectedModelId}
+                  onChange={(event) =>
+                    handleAdministratorModelChange(event.currentTarget.value)
+                  }
+                >
+                  {models.map((model) => (
+                    <option key={model.id} value={model.id}>
+                      {model.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
 
             <label className="filter">
-              <span>Run</span>
+              <span className="usa-label">Run</span>
               <select
+                className="usa-select"
                 aria-label="Run"
                 value={selectedRunId}
                 onChange={(event) =>
@@ -173,80 +240,166 @@ function App() {
           </div>
           <p className="dataset-note">
             <span className="note-indicator" aria-hidden="true" />
-            Example data · 100 fish
+            {viewMode !== 'administrator'
+              ? 'Model aggregate · no fish-level details'
+              : 'Administrator view · all 100 fish'}
           </p>
         </div>
 
-        <section className="summary-grid" aria-label="Run summary">
-          <article className="summary-card summary-card-primary">
-            <p>Identification accuracy</p>
-            <strong>{accuracy.toFixed(1)}%</strong>
-            <span>
-              {selectedModel.name} · {formatRunLabel(selectedRun.run_id)}
-            </span>
-          </article>
-          <article className="summary-card">
-            <p>Correct IDs</p>
-            <strong>{correctCount}</strong>
-            <span>of {results.length} fish</span>
-          </article>
-          <article className="summary-card">
-            <p>Incorrect IDs</p>
-            <strong>{incorrectCount}</strong>
-            <span>of {results.length} fish</span>
-          </article>
-        </section>
-
-        <section className="results-panel" aria-labelledby="results-title">
-          <div className="panel-heading">
-            <div>
-              <h2 id="results-title">Run predictions</h2>
-              <p>Predicted species compared with the labeled sample.</p>
+        <section
+          className="summary-grid"
+          aria-label={
+            viewMode !== 'administrator' ? 'Model run summary' : 'Run summary'
+          }
+        >
+          <article className="usa-card usa-card--bordered summary-card summary-card-primary">
+            <div className="usa-card__container">
+              <div className="usa-card__header">
+                <h2 className="usa-card__heading">Identification accuracy</h2>
+              </div>
+              <div className="usa-card__body">
+                <p className="summary-value">{accuracy.toFixed(1)}%</p>
+                <p className="summary-detail">
+                  {selectedModel.name} · {formatRunLabel(selectedRun.run_id)}
+                </p>
+              </div>
             </div>
-            <span className="result-count">{results.length} results</span>
-          </div>
-
-          <div className="table-wrap">
-            <table aria-label="Fish identification results">
-              <thead>
-                <tr>
-                  <th scope="col">Fish ID</th>
-                  <th scope="col">Actual species</th>
-                  <th scope="col">Predicted species</th>
-                  <th scope="col">Length</th>
-                  <th scope="col">Confidence</th>
-                  <th scope="col">Result</th>
-                </tr>
-              </thead>
-              <tbody>
-                {results.map((result) => (
-                  <tr key={result.fishId}>
-                    <td className="fish-id">{result.fishId}</td>
-                    <td>{formatSpecies(result.actualSpecies)}</td>
-                    <td>{formatSpecies(result.predictedSpecies)}</td>
-                    <td>
-                      {result.length} {result.lengthUnit}
-                    </td>
-                    <td>
-                      {result.confidence === null
-                        ? '—'
-                        : `${(result.confidence * 100).toFixed(0)}%`}
-                    </td>
-                    <td>
-                      <span
-                        className={`result-pill ${
-                          result.isCorrect ? 'is-correct' : 'is-incorrect'
-                        }`}
-                      >
-                        {result.isCorrect ? 'Correct' : 'Incorrect'}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          </article>
+          <article className="usa-card usa-card--bordered summary-card">
+            <div className="usa-card__container">
+              <div className="usa-card__header">
+                <h2 className="usa-card__heading">Correct IDs</h2>
+              </div>
+              <div className="usa-card__body">
+                <p className="summary-value">{correctCount}</p>
+                <p className="summary-detail">of {results.length} fish</p>
+              </div>
+            </div>
+          </article>
+          <article className="usa-card usa-card--bordered summary-card">
+            <div className="usa-card__container">
+              <div className="usa-card__header">
+                <h2 className="usa-card__heading">Incorrect IDs</h2>
+              </div>
+              <div className="usa-card__body">
+                <p className="summary-value">{incorrectCount}</p>
+                <p className="summary-detail">of {results.length} fish</p>
+              </div>
+            </div>
+          </article>
         </section>
+
+        {viewMode !== 'administrator' ? (
+          <section
+            className="usa-card usa-card--bordered aggregate-panel"
+            aria-labelledby="model-results-title"
+          >
+            <div className="usa-card__container">
+              <div className="panel-heading usa-card__header">
+                <div>
+                  <h2 id="model-results-title">
+                    {selectedModel.name} result breakdown
+                  </h2>
+                  <p>
+                    Correct and incorrect identifications for{' '}
+                    {formatRunLabel(selectedRun.run_id).toLowerCase()}.
+                  </p>
+                </div>
+                <span className="result-count">
+                  {results.length} submissions
+                </span>
+              </div>
+              <div className="aggregate-content usa-card__body">
+                <div
+                  className="aggregate-bar"
+                  role="img"
+                  aria-label={`${correctCount} correct and ${incorrectCount} incorrect identifications`}
+                >
+                  <span
+                    className="aggregate-bar-correct"
+                    style={{ width: `${accuracy}%` }}
+                  />
+                  <span
+                    className="aggregate-bar-incorrect"
+                    style={{ width: `${100 - accuracy}%` }}
+                  />
+                </div>
+                <div className="aggregate-legend">
+                  <span>
+                    <i className="legend-dot legend-correct" aria-hidden="true" />
+                    Correct <strong>{correctCount}</strong>
+                  </span>
+                  <span>
+                    <i
+                      className="legend-dot legend-incorrect"
+                      aria-hidden="true"
+                    />
+                    Incorrect <strong>{incorrectCount}</strong>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : (
+          <section
+            className="usa-card usa-card--bordered results-panel"
+            aria-labelledby="results-title"
+          >
+            <div className="usa-card__container">
+              <div className="panel-heading usa-card__header">
+                <div>
+                  <h2 id="results-title">Run predictions</h2>
+                  <p>Predicted species compared with the labeled sample.</p>
+                </div>
+                <span className="result-count">{results.length} results</span>
+              </div>
+
+              <div className="table-wrap usa-card__body">
+                <table
+                  className="usa-table usa-table--striped"
+                  aria-label="Fish identification results"
+                >
+                  <thead>
+                    <tr>
+                      <th scope="col">Fish ID</th>
+                      <th scope="col">Actual species</th>
+                      <th scope="col">Predicted species</th>
+                      <th scope="col">Length</th>
+                      <th scope="col">Confidence</th>
+                      <th scope="col">Result</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {results.map((result) => (
+                      <tr key={result.fishId}>
+                        <td className="fish-id">{result.fishId}</td>
+                        <td>{formatSpecies(result.actualSpecies)}</td>
+                        <td>{formatSpecies(result.predictedSpecies)}</td>
+                        <td>
+                          {result.length} {result.lengthUnit}
+                        </td>
+                        <td>
+                          {result.confidence === null
+                            ? '—'
+                            : `${(result.confidence * 100).toFixed(0)}%`}
+                        </td>
+                        <td>
+                          <span
+                            className={`usa-tag result-pill ${
+                              result.isCorrect ? 'is-correct' : 'is-incorrect'
+                            }`}
+                          >
+                            {result.isCorrect ? 'Correct' : 'Incorrect'}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        )}
       </section>
 
       <footer className="footer">

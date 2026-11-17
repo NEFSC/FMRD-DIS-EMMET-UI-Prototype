@@ -3,7 +3,8 @@ This repository is a scientific product and is not official communication of the
 # EMMET UI Prototype
 
 A React and TypeScript starter interface powered by Vite. Unit tests use Jest
-and React Testing Library.
+and React Testing Library. UI components and base styles use the U.S. Web
+Design System (USWDS), installed through npm.
 
 ## Getting started
 
@@ -21,6 +22,10 @@ npm run dev
 - `npm test` runs the Jest test suite.
 - `npm run test:watch` runs Jest in watch mode.
 
+USWDS is added as the `@uswds/uswds` npm dependency. Its compiled stylesheet is
+imported from the package in `src/main.tsx`; the UI uses USWDS button groups,
+form controls, cards, tags, and tables.
+
 ## Example test data
 
 The UI reads six contract-shaped sample batches from
@@ -31,5 +36,7 @@ confidence, length in centimeters, and errors. The model and run are encoded in
 
 Ground-truth species labels used for comparison are kept separately in
 [`src/data/fish-test-labels.json`](./src/data/fish-test-labels.json), so the
-results file keeps the API contract shape. Data is synthetic; Haddock replaces
-Pacific cod in the examples.
+results file keeps the API contract shape. Data is synthetic. The UI includes an administrator view with
+fish-level results and separate Cvision and IM views with aggregate
+correct/incorrect counts. The view switch is for prototyping and is not an
+authentication or authorization mechanism.
