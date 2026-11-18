@@ -1,5 +1,6 @@
 import sampleResults from './fish-test-results.json';
 import sampleLabels from './fish-test-labels.json';
+import runMetrics from './fish-run-metrics.json';
 import type { FishResultsBatch } from './fish-test-contract';
 
 const batches = sampleResults as FishResultsBatch[];
@@ -15,6 +16,10 @@ describe('synthetic fish test results', () => {
     const submissionIds = new Set(labelsById.keys());
 
     expect(batches).toHaveLength(6);
+    expect(runMetrics).toHaveLength(batches.length);
+    expect(new Set(runMetrics.map((metrics) => metrics.run_id)).size).toBe(
+      batches.length,
+    );
     expect(sampleLabels.submissions).toHaveLength(100);
     expect(submissionIds.size).toBe(100);
     expect(
@@ -24,6 +29,12 @@ describe('synthetic fish test results', () => {
     ).toBe(true);
 
     for (const batch of batches) {
+      const metrics = runMetrics.find(
+        (item) => item.run_id === batch.run_id,
+      );
+      expect(metrics).toBeDefined();
+      expect(metrics?.runtime_seconds).toBeGreaterThan(0);
+
       expect(Object.keys(batch).sort()).toEqual([
         'api_version',
         'processed_at',

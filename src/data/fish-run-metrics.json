@@ -1,0 +1,26 @@
+[
+  {
+    "run_id": "batch_9942_cvision_run_1",
+    "runtime_seconds": 12.8
+  },
+  {
+    "run_id": "batch_9942_cvision_run_2",
+    "runtime_seconds": 14.2
+  },
+  {
+    "run_id": "batch_9942_cvision_run_3",
+    "runtime_seconds": 13.4
+  },
+  {
+    "run_id": "batch_9942_im_run_1",
+    "runtime_seconds": 11.6
+  },
+  {
+    "run_id": "batch_9942_im_run_2",
+    "runtime_seconds": 10.9
+  },
+  {
+    "run_id": "batch_9942_im_run_3",
+    "runtime_seconds": 12.1
+  }
+]

@@ -19,6 +19,9 @@ describe('App', () => {
     ).toHaveClass('usa-table');
     expect(screen.getByRole('combobox', { name: 'Model' })).toHaveValue('cvision');
     expect(screen.getByText('91.0%')).toBeInTheDocument();
+    expect(screen.getByText('9.0%')).toBeInTheDocument();
+    expect(screen.getByText('12.8 s')).toBeInTheDocument();
+    expect(screen.getByText('PASS')).toBeInTheDocument();
     expect(screen.getAllByRole('row')).toHaveLength(101);
     expect(screen.getAllByText('Haddock').length).toBeGreaterThan(0);
   });
@@ -35,6 +38,35 @@ describe('App', () => {
       'batch_9942_im_run_1',
     );
     expect(screen.getByText('82.0%')).toBeInTheDocument();
+    expect(screen.getByText('18.0%')).toBeInTheDocument();
+    expect(screen.getByText('11.6 s')).toBeInTheDocument();
+
+    fireEvent.change(screen.getByRole('combobox', { name: 'Run' }), {
+      target: { value: 'batch_9942_im_run_2' },
+    });
+
+    expect(screen.getByText('94.0%')).toBeInTheDocument();
+    expect(screen.getByText('6.0%')).toBeInTheDocument();
+    expect(screen.getByText('10.9 s')).toBeInTheDocument();
+    expect(screen.getByText('PASS')).toBeInTheDocument();
+  });
+
+  it('passes a run at 85% and fails a run below 85%', () => {
+    render(<App />);
+
+    fireEvent.change(screen.getByRole('combobox', { name: 'Run' }), {
+      target: { value: 'batch_9942_cvision_run_3' },
+    });
+
+    expect(screen.getByText('85.0%')).toBeInTheDocument();
+    expect(screen.getByText('PASS')).toBeInTheDocument();
+
+    fireEvent.change(screen.getByRole('combobox', { name: 'Run' }), {
+      target: { value: 'batch_9942_cvision_run_2' },
+    });
+
+    expect(screen.getByText('79.0%')).toBeInTheDocument();
+    expect(screen.getByText('FAIL')).toBeInTheDocument();
   });
 
   it('shows a model aggregate without fish-level details', () => {

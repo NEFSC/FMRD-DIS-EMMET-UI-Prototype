@@ -151,7 +151,7 @@ body {
 
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 16px;
   margin-bottom: 24px;
 }
@@ -193,6 +193,14 @@ body {
   margin: 6px 0 0;
   color: #879398;
   font-size: 11px;
+}
+
+.run-status-pass {
+  color: #287553;
+}
+
+.run-status-fail {
+  color: #a44e3d;
 }
 
 .summary-card-primary .usa-card__container {
@@ -367,6 +375,7 @@ body {
   }
 
   .summary-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
   }
 
@@ -412,7 +421,7 @@ body {
   }
 
   .summary-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .footer {

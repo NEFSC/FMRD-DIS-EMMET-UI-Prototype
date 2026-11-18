@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import sampleResults from './data/fish-test-results.json';
 import sampleLabels from './data/fish-test-labels.json';
+import runMetrics from './data/fish-run-metrics.json';
 import type { FishResultsBatch, FishResult } from './data/fish-test-contract';
 
+const passingAccuracyThreshold = 85;
 const batches = sampleResults as FishResultsBatch[];
 const models = [
   { id: 'cvision', name: 'Cvision' },
@@ -74,8 +76,11 @@ function App() {
     (model) => model.id === selectedModelId,
   );
   const selectedRun = modelRuns.find((batch) => batch.run_id === selectedRunId);
+  const selectedRunMetrics = runMetrics.find(
+    (metrics) => metrics.run_id === selectedRunId,
+  );
 
-  if (!selectedModel || !selectedRun) {
+  if (!selectedModel || !selectedRun || !selectedRunMetrics) {
     throw new Error(
       `Invalid model or run selection: "${selectedModelId}", "${selectedRunId}".`,
     );
@@ -108,6 +113,10 @@ function App() {
   const accuracy = results.length
     ? (correctCount / results.length) * 100
     : 0;
+  const errorRate = results.length
+    ? (incorrectCount / results.length) * 100
+    : 0;
+  const runPassed = accuracy >= passingAccuracyThreshold;
 
   const handleViewChange = (view: ViewMode) => {
     const modelId =
@@ -279,11 +288,54 @@ function App() {
           <article className="usa-card usa-card--bordered summary-card">
             <div className="usa-card__container">
               <div className="usa-card__header">
+                <h2 className="usa-card__heading">Run result</h2>
+              </div>
+              <div className="usa-card__body">
+                <p
+                  className={`summary-value run-status ${
+                    runPassed ? 'run-status-pass' : 'run-status-fail'
+                  }`}
+                >
+                  {runPassed ? 'PASS' : 'FAIL'}
+                </p>
+                <p className="summary-detail">
+                  {passingAccuracyThreshold}% minimum accuracy
+                </p>
+              </div>
+            </div>
+          </article>
+          <article className="usa-card usa-card--bordered summary-card">
+            <div className="usa-card__container">
+              <div className="usa-card__header">
                 <h2 className="usa-card__heading">Incorrect IDs</h2>
               </div>
               <div className="usa-card__body">
                 <p className="summary-value">{incorrectCount}</p>
                 <p className="summary-detail">of {results.length} fish</p>
+              </div>
+            </div>
+          </article>
+          <article className="usa-card usa-card--bordered summary-card">
+            <div className="usa-card__container">
+              <div className="usa-card__header">
+                <h2 className="usa-card__heading">Error rate</h2>
+              </div>
+              <div className="usa-card__body">
+                <p className="summary-value">{errorRate.toFixed(1)}%</p>
+                <p className="summary-detail">incorrect identifications</p>
+              </div>
+            </div>
+          </article>
+          <article className="usa-card usa-card--bordered summary-card">
+            <div className="usa-card__container">
+              <div className="usa-card__header">
+                <h2 className="usa-card__heading">Runtime</h2>
+              </div>
+              <div className="usa-card__body">
+                <p className="summary-value">
+                  {selectedRunMetrics.runtime_seconds.toFixed(1)} s
+                </p>
+                <p className="summary-detail">synthetic run duration</p>
               </div>
             </div>
           </article>
