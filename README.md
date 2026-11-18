@@ -22,6 +22,16 @@ npm run dev
 - `npm test` runs the Jest test suite.
 - `npm run test:watch` runs Jest in watch mode.
 
+## GitHub Pages deployment
+
+The `Deploy to GitHub Pages` workflow runs tests, builds the site, and deploys
+it whenever changes are pushed to `main`. It can also be started manually from
+the repository's Actions tab. In repository settings, set **Pages → Build and
+deployment → Source** to **GitHub Actions**.
+
+The deployed site is available at
+<https://nefsc.github.io/FMRD-DIS-EMMET-UI-Prototype/>.
+
 USWDS is added as the `@uswds/uswds` npm dependency. Its compiled stylesheet is
 imported from the package in `src/main.tsx`; the UI uses USWDS button groups,
 form controls, cards, tags, and tables.
