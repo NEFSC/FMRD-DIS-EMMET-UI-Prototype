@@ -8,6 +8,10 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: 'Fish identification results' }))
       .toBeInTheDocument();
     expect(screen.getByText('EMMET')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'EMMET home' })).toHaveAttribute(
+      'href',
+      './',
+    );
     expect(screen.getByRole('combobox', { name: 'Model' })).toHaveClass(
       'usa-select',
     );

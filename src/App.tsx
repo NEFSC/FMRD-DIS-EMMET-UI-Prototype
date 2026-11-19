@@ -155,7 +155,7 @@ function App() {
   return (
     <main className="page">
       <header className="topbar">
-        <a className="brand" href="/" aria-label="EMMET home">
+        <a className="brand" href="./" aria-label="EMMET home">
           <span className="brand-mark" aria-hidden="true">
             E
           </span>
