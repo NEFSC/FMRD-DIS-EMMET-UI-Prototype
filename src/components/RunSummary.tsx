@@ -6,19 +6,23 @@ type RunSummaryProps = RunSummaryValues & {
   runId: string;
   threshold: number;
   totalResults: number;
+  submissionCount: number;
 };
 
 function RunSummary({
   accuracy,
   correctCount,
   incorrectCount,
+  failRate,
   errorRate,
+  errorCount,
   runPassed,
   runtimeSeconds,
   modelName,
   runId,
   threshold,
   totalResults,
+  submissionCount,
 }: RunSummaryProps) {
   return (
     <section className="summary-grid" aria-label="Run summary">
@@ -31,7 +35,7 @@ function RunSummary({
       <SummaryCard
         title="Correct IDs"
         value={correctCount}
-        detail={`of ${totalResults} fish`}
+        detail={`of ${totalResults} successful`}
       />
       <SummaryCard
         title="Run result"
@@ -42,12 +46,17 @@ function RunSummary({
       <SummaryCard
         title="Incorrect IDs"
         value={incorrectCount}
-        detail={`of ${totalResults} fish`}
+        detail={`of ${totalResults} successful`}
+      />
+      <SummaryCard
+        title="Fail rate"
+        value={`${failRate.toFixed(1)}%`}
+        detail="incorrect identifications"
       />
       <SummaryCard
         title="Error rate"
         value={`${errorRate.toFixed(1)}%`}
-        detail="incorrect identifications"
+        detail={`${errorCount} of ${submissionCount} inferences failed`}
       />
       <SummaryCard
         title="Runtime"

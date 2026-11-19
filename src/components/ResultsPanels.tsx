@@ -136,7 +136,11 @@ function ResultsTable({ results }: { results: ResultRow[] }) {
                 <tr key={result.fishId}>
                   <td className="fish-id">{result.fishId}</td>
                   <td>{formatSpecies(result.actualSpecies)}</td>
-                  <td>{formatSpecies(result.predictedSpecies)}</td>
+                  <td>
+                    {result.predictedSpecies === null
+                      ? 'Inference unavailable'
+                      : formatSpecies(result.predictedSpecies)}
+                  </td>
                   <td>
                     {result.length} {result.lengthUnit}
                   </td>
@@ -148,10 +152,18 @@ function ResultsTable({ results }: { results: ResultRow[] }) {
                   <td>
                     <span
                       className={`usa-tag result-pill ${
-                        result.isCorrect ? 'is-correct' : 'is-incorrect'
+                        result.hasInferenceError
+                          ? 'is-error'
+                          : result.isCorrect
+                            ? 'is-correct'
+                            : 'is-incorrect'
                       }`}
                     >
-                      {result.isCorrect ? 'Correct' : 'Incorrect'}
+                      {result.hasInferenceError
+                        ? 'Error'
+                        : result.isCorrect
+                          ? 'Correct'
+                          : 'Incorrect'}
                     </span>
                   </td>
                 </tr>

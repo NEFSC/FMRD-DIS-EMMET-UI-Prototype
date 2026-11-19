@@ -11,18 +11,21 @@ export type ModelOption = {
 export type ResultRow = {
   fishId: string;
   actualSpecies: string;
-  predictedSpecies: string;
+  predictedSpecies: string | null;
   confidence: number | null;
   length: number;
   lengthUnit: string;
   isCorrect: boolean;
+  hasInferenceError: boolean;
 };
 
 export type RunSummary = {
   accuracy: number;
   correctCount: number;
   incorrectCount: number;
+  failRate: number;
   errorRate: number;
+  errorCount: number;
   runPassed: boolean;
   runtimeSeconds: number;
 };

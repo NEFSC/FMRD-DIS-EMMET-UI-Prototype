@@ -14,10 +14,10 @@ describe('App result views', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole('img', {
-        name: '82 correct and 18 incorrect identifications',
+        name: '80 correct and 18 incorrect identifications',
       }),
     ).toBeInTheDocument();
-    expect(screen.getAllByText('of 100 fish')).toHaveLength(2);
+    expect(screen.getAllByText('of 98 successful')).toHaveLength(2);
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
     expect(screen.queryByText(/FISH-\d+/)).not.toBeInTheDocument();
     expect(screen.queryByRole('combobox', { name: 'Company' })).toBeNull();
@@ -32,7 +32,7 @@ describe('App result views', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole('img', {
-        name: '91 correct and 9 incorrect identifications',
+        name: '90 correct and 9 incorrect identifications',
       }),
     ).toBeInTheDocument();
 

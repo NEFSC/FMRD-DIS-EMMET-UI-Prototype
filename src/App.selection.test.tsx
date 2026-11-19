@@ -13,16 +13,18 @@ describe('App model and run selection', () => {
     expect(screen.getByRole('combobox', { name: 'Run' })).toHaveValue(
       'batch_9942_im_run_1',
     );
-    expect(screen.getByText('82.0%')).toBeInTheDocument();
-    expect(screen.getByText('18.0%')).toBeInTheDocument();
+    expect(screen.getByText('81.6%')).toBeInTheDocument();
+    expect(screen.getByText('18.4%')).toBeInTheDocument();
+    expect(screen.getByText('2.0%')).toBeInTheDocument();
     expect(screen.getByText('11.6 s')).toBeInTheDocument();
 
     fireEvent.change(screen.getByRole('combobox', { name: 'Run' }), {
       target: { value: 'batch_9942_im_run_2' },
     });
 
-    expect(screen.getByText('94.0%')).toBeInTheDocument();
-    expect(screen.getByText('6.0%')).toBeInTheDocument();
+    expect(screen.getByText('93.9%')).toBeInTheDocument();
+    expect(screen.getByText('6.1%')).toBeInTheDocument();
+    expect(screen.getByText('1.0%')).toBeInTheDocument();
     expect(screen.getByText('10.9 s')).toBeInTheDocument();
     expect(screen.getByText('PASS')).toBeInTheDocument();
   });

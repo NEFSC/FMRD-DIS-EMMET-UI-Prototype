@@ -151,7 +151,7 @@ body {
 
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 16px;
   margin-bottom: 24px;
 }
@@ -332,6 +332,11 @@ body {
 .is-incorrect {
   background: #fbefec;
   color: #a44e3d;
+}
+
+.is-error {
+  background: #fff3cd;
+  color: #7a5a00;
 }
 
 .footer {

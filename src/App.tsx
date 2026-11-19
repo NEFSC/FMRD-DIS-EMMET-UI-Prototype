@@ -76,26 +76,38 @@ function App() {
       );
     }
 
-    const species = getResult(submission.results, 'species');
     const length = getResult(submission.results, 'length');
+    const hasInferenceError = submission.errors.length > 0;
+    const species = hasInferenceError
+      ? undefined
+      : getResult(submission.results, 'species');
 
     return {
       fishId: label.fish_id,
       actualSpecies: label.actual_species,
-      predictedSpecies: species.classification,
-      confidence: species.confidence_score,
+      predictedSpecies: species?.classification ?? null,
+      confidence: species?.confidence_score ?? null,
       length: length.length,
       lengthUnit: length.unit,
-      isCorrect: species.classification === label.actual_species,
+      isCorrect:
+        !hasInferenceError && species?.classification === label.actual_species,
+      hasInferenceError,
     };
   });
-  const correctCount = results.filter((result) => result.isCorrect).length;
-  const incorrectCount = results.length - correctCount;
-  const accuracy = results.length
-    ? (correctCount / results.length) * 100
+  const errorCount = results.filter((result) => result.hasInferenceError).length;
+  const successfulResults = results.length - errorCount;
+  const correctCount = results.filter(
+    (result) => !result.hasInferenceError && result.isCorrect,
+  ).length;
+  const incorrectCount = successfulResults - correctCount;
+  const accuracy = successfulResults
+    ? (correctCount / successfulResults) * 100
+    : 0;
+  const failRate = successfulResults
+    ? (incorrectCount / successfulResults) * 100
     : 0;
   const errorRate = results.length
-    ? (incorrectCount / results.length) * 100
+    ? (errorCount / results.length) * 100
     : 0;
 
   const handleViewChange = (view: ViewMode) => {
@@ -147,13 +159,16 @@ function App() {
           accuracy={accuracy}
           correctCount={correctCount}
           incorrectCount={incorrectCount}
+          failRate={failRate}
           errorRate={errorRate}
+          errorCount={errorCount}
           runPassed={accuracy >= passingAccuracyThreshold}
           runtimeSeconds={selectedRunMetrics.runtime_seconds}
           modelName={selectedModel.name}
           runId={selectedRun.run_id}
           threshold={passingAccuracyThreshold}
-          totalResults={results.length}
+          totalResults={successfulResults}
+          submissionCount={results.length}
         />
 
         <ResultsPanels

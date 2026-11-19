@@ -16,7 +16,7 @@ describe('App run metrics', () => {
       target: { value: 'batch_9942_cvision_run_2' },
     });
 
-    expect(screen.getByText('79.0%')).toBeInTheDocument();
+    expect(screen.getByText('78.6%')).toBeInTheDocument();
     expect(screen.getByText('FAIL')).toBeInTheDocument();
   });
 });

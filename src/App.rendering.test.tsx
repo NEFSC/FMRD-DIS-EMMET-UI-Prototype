@@ -22,8 +22,13 @@ describe('App rendering', () => {
       screen.getByRole('table', { name: 'Fish identification results' }),
     ).toHaveClass('usa-table');
     expect(screen.getByRole('combobox', { name: 'Model' })).toHaveValue('cvision');
-    expect(screen.getByText('91.0%')).toBeInTheDocument();
-    expect(screen.getByText('9.0%')).toBeInTheDocument();
+    expect(screen.getByText('90.9%')).toBeInTheDocument();
+    expect(screen.getByText('9.1%')).toBeInTheDocument();
+    expect(screen.getByText('1.0%')).toBeInTheDocument();
+    expect(screen.getByText('Fail rate')).toBeInTheDocument();
+    expect(screen.getByText('Error rate')).toBeInTheDocument();
+    expect(screen.getByText('Inference unavailable')).toBeInTheDocument();
+    expect(screen.getByText('Error')).toBeInTheDocument();
     expect(screen.getByText('12.8 s')).toBeInTheDocument();
     expect(screen.getByText('PASS')).toBeInTheDocument();
     expect(screen.getAllByRole('row')).toHaveLength(101);

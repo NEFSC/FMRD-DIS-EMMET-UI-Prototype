@@ -56,11 +56,12 @@ describe('synthetic fish test results', () => {
           'submission_id',
         ]);
         expect(submissionIds.has(submission.submission_id)).toBe(true);
-        expect(submission.errors).toEqual([]);
-        expect(submission.results.map((result) => result.method)).toEqual([
-          'species',
-          'length',
-        ]);
+        expect(submission.errors.every((error) => error.length > 0)).toBe(true);
+        expect(submission.results.map((result) => result.method)).toEqual(
+          submission.errors.length > 0
+            ? ['length']
+            : ['species', 'length'],
+        );
 
         const speciesResult = submission.results.find(
           (result) => result.method === 'species',
@@ -69,7 +70,11 @@ describe('synthetic fish test results', () => {
           (result) => result.method === 'length',
         );
 
-        expect(speciesResult).toBeDefined();
+        if (submission.errors.length === 0) {
+          expect(speciesResult).toBeDefined();
+        } else {
+          expect(speciesResult).toBeUndefined();
+        }
         expect(lengthResult).toBeDefined();
 
         if (speciesResult?.method === 'species') {

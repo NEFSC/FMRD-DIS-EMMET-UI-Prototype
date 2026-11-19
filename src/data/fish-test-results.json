@@ -1592,17 +1592,14 @@
         "submission_id": "submission_100",
         "results": [
           {
-            "method": "species",
-            "classification": "winter_flounder",
-            "confidence_score": 0.82
-          },
-          {
             "method": "length",
             "length": 24,
             "unit": "cm"
           }
         ],
-        "errors": []
+        "errors": [
+          "species_inference_unavailable"
+        ]
       }
     ]
   },
@@ -3183,33 +3180,27 @@
         "submission_id": "submission_099",
         "results": [
           {
-            "method": "species",
-            "classification": "summer_flounder",
-            "confidence_score": 0.97
-          },
-          {
             "method": "length",
             "length": 64,
             "unit": "cm"
           }
         ],
-        "errors": []
+        "errors": [
+          "species_inference_unavailable"
+        ]
       },
       {
         "submission_id": "submission_100",
         "results": [
-          {
-            "method": "species",
-            "classification": "winter_flounder",
-            "confidence_score": 0.82
-          },
           {
             "method": "length",
             "length": 24,
             "unit": "cm"
           }
         ],
-        "errors": []
+        "errors": [
+          "species_inference_unavailable"
+        ]
       }
     ]
   },
@@ -6397,33 +6388,27 @@
         "submission_id": "submission_099",
         "results": [
           {
-            "method": "species",
-            "classification": "summer_flounder",
-            "confidence_score": 0.77
-          },
-          {
             "method": "length",
             "length": 64,
             "unit": "cm"
           }
         ],
-        "errors": []
+        "errors": [
+          "species_inference_unavailable"
+        ]
       },
       {
         "submission_id": "submission_100",
         "results": [
-          {
-            "method": "species",
-            "classification": "winter_flounder",
-            "confidence_score": 0.9
-          },
           {
             "method": "length",
             "length": 24,
             "unit": "cm"
           }
         ],
-        "errors": []
+        "errors": [
+          "species_inference_unavailable"
+        ]
       }
     ]
   },
@@ -8020,17 +8005,14 @@
         "submission_id": "submission_100",
         "results": [
           {
-            "method": "species",
-            "classification": "winter_flounder",
-            "confidence_score": 0.9
-          },
-          {
             "method": "length",
             "length": 24,
             "unit": "cm"
           }
         ],
-        "errors": []
+        "errors": [
+          "species_inference_unavailable"
+        ]
       }
     ]
   },
@@ -9595,49 +9577,40 @@
         "submission_id": "submission_098",
         "results": [
           {
-            "method": "species",
-            "classification": "witch_flounder",
-            "confidence_score": 0.92
-          },
-          {
             "method": "length",
             "length": 47,
             "unit": "cm"
           }
         ],
-        "errors": []
+        "errors": [
+          "species_inference_unavailable"
+        ]
       },
       {
         "submission_id": "submission_099",
         "results": [
-          {
-            "method": "species",
-            "classification": "summer_flounder",
-            "confidence_score": 0.77
-          },
           {
             "method": "length",
             "length": 64,
             "unit": "cm"
           }
         ],
-        "errors": []
+        "errors": [
+          "species_inference_unavailable"
+        ]
       },
       {
         "submission_id": "submission_100",
         "results": [
-          {
-            "method": "species",
-            "classification": "winter_flounder",
-            "confidence_score": 0.9
-          },
           {
             "method": "length",
             "length": 24,
             "unit": "cm"
           }
         ],
-        "errors": []
+        "errors": [
+          "species_inference_unavailable"
+        ]
       }
     ]
   }
