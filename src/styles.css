@@ -241,8 +241,11 @@ body {
 }
 
 .aggregate-bar-incorrect {
-  flex: 1;
   background: #d98675;
+}
+
+.aggregate-bar-error {
+  background: #e7b84b;
 }
 
 .aggregate-legend {
@@ -277,6 +280,10 @@ body {
 
 .legend-incorrect {
   background: #d98675;
+}
+
+.legend-error {
+  background: #e7b84b;
 }
 
 .panel-heading {

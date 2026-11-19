@@ -6,9 +6,9 @@ type ResultsPanelsProps = {
   modelName: string;
   runId: string;
   results: ResultRow[];
-  accuracy: number;
   correctCount: number;
   incorrectCount: number;
+  errorCount: number;
 };
 
 function ResultsPanels({
@@ -16,18 +16,18 @@ function ResultsPanels({
   modelName,
   runId,
   results,
-  accuracy,
   correctCount,
   incorrectCount,
+  errorCount,
 }: ResultsPanelsProps) {
   return viewMode !== 'administrator' ? (
     <AggregatePanel
       modelName={modelName}
       runId={runId}
       resultsCount={results.length}
-      accuracy={accuracy}
       correctCount={correctCount}
       incorrectCount={incorrectCount}
+      errorCount={errorCount}
     />
   ) : (
     <ResultsTable results={results} />
@@ -38,19 +38,21 @@ type AggregatePanelProps = {
   modelName: string;
   runId: string;
   resultsCount: number;
-  accuracy: number;
   correctCount: number;
   incorrectCount: number;
+  errorCount: number;
 };
 
 function AggregatePanel({
   modelName,
   runId,
   resultsCount,
-  accuracy,
   correctCount,
   incorrectCount,
+  errorCount,
 }: AggregatePanelProps) {
+  const totalCount = correctCount + incorrectCount + errorCount;
+
   return (
     <section
       className="usa-card usa-card--bordered aggregate-panel"
@@ -71,15 +73,19 @@ function AggregatePanel({
           <div
             className="aggregate-bar"
             role="img"
-            aria-label={`${correctCount} correct and ${incorrectCount} incorrect identifications`}
+            aria-label={`${correctCount} correct, ${incorrectCount} incorrect, and ${errorCount} inference error${errorCount === 1 ? '' : 's'}`}
           >
             <span
               className="aggregate-bar-correct"
-              style={{ width: `${accuracy}%` }}
+              style={{ width: `${(correctCount / totalCount) * 100}%` }}
             />
             <span
               className="aggregate-bar-incorrect"
-              style={{ width: `${100 - accuracy}%` }}
+              style={{ width: `${(incorrectCount / totalCount) * 100}%` }}
+            />
+            <span
+              className="aggregate-bar-error"
+              style={{ width: `${(errorCount / totalCount) * 100}%` }}
             />
           </div>
           <div className="aggregate-legend">
@@ -93,6 +99,10 @@ function AggregatePanel({
                 aria-hidden="true"
               />
               Incorrect <strong>{incorrectCount}</strong>
+            </span>
+            <span>
+              <i className="legend-dot legend-error" aria-hidden="true" />
+              Errors <strong>{errorCount}</strong>
             </span>
           </div>
         </div>

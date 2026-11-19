@@ -14,7 +14,7 @@ describe('App result views', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole('img', {
-        name: '80 correct and 18 incorrect identifications',
+        name: '80 correct, 18 incorrect, and 2 inference errors',
       }),
     ).toBeInTheDocument();
     expect(screen.getAllByText('of 98 successful')).toHaveLength(2);
@@ -32,7 +32,7 @@ describe('App result views', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole('img', {
-        name: '90 correct and 9 incorrect identifications',
+        name: '90 correct, 9 incorrect, and 1 inference error',
       }),
     ).toBeInTheDocument();
 

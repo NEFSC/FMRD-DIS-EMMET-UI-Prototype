@@ -176,9 +176,9 @@ function App() {
           modelName={selectedModel.name}
           runId={selectedRun.run_id}
           results={results}
-          accuracy={accuracy}
           correctCount={correctCount}
           incorrectCount={incorrectCount}
+          errorCount={errorCount}
         />
       </section>
 
