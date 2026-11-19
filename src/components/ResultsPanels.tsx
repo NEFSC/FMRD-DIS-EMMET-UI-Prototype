@@ -1,0 +1,167 @@
+import { formatRunLabel, formatSpecies } from '../utils/formatters';
+import type { ResultRow, ViewMode } from './types';
+
+type ResultsPanelsProps = {
+  viewMode: ViewMode;
+  modelName: string;
+  runId: string;
+  results: ResultRow[];
+  accuracy: number;
+  correctCount: number;
+  incorrectCount: number;
+};
+
+function ResultsPanels({
+  viewMode,
+  modelName,
+  runId,
+  results,
+  accuracy,
+  correctCount,
+  incorrectCount,
+}: ResultsPanelsProps) {
+  return viewMode !== 'administrator' ? (
+    <AggregatePanel
+      modelName={modelName}
+      runId={runId}
+      resultsCount={results.length}
+      accuracy={accuracy}
+      correctCount={correctCount}
+      incorrectCount={incorrectCount}
+    />
+  ) : (
+    <ResultsTable results={results} />
+  );
+}
+
+type AggregatePanelProps = {
+  modelName: string;
+  runId: string;
+  resultsCount: number;
+  accuracy: number;
+  correctCount: number;
+  incorrectCount: number;
+};
+
+function AggregatePanel({
+  modelName,
+  runId,
+  resultsCount,
+  accuracy,
+  correctCount,
+  incorrectCount,
+}: AggregatePanelProps) {
+  return (
+    <section
+      className="usa-card usa-card--bordered aggregate-panel"
+      aria-labelledby="model-results-title"
+    >
+      <div className="usa-card__container">
+        <div className="panel-heading usa-card__header">
+          <div>
+            <h2 id="model-results-title">{modelName} result breakdown</h2>
+            <p>
+              Correct and incorrect identifications for{' '}
+              {formatRunLabel(runId).toLowerCase()}.
+            </p>
+          </div>
+          <span className="result-count">{resultsCount} submissions</span>
+        </div>
+        <div className="aggregate-content usa-card__body">
+          <div
+            className="aggregate-bar"
+            role="img"
+            aria-label={`${correctCount} correct and ${incorrectCount} incorrect identifications`}
+          >
+            <span
+              className="aggregate-bar-correct"
+              style={{ width: `${accuracy}%` }}
+            />
+            <span
+              className="aggregate-bar-incorrect"
+              style={{ width: `${100 - accuracy}%` }}
+            />
+          </div>
+          <div className="aggregate-legend">
+            <span>
+              <i className="legend-dot legend-correct" aria-hidden="true" />
+              Correct <strong>{correctCount}</strong>
+            </span>
+            <span>
+              <i
+                className="legend-dot legend-incorrect"
+                aria-hidden="true"
+              />
+              Incorrect <strong>{incorrectCount}</strong>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ResultsTable({ results }: { results: ResultRow[] }) {
+  return (
+    <section
+      className="usa-card usa-card--bordered results-panel"
+      aria-labelledby="results-title"
+    >
+      <div className="usa-card__container">
+        <div className="panel-heading usa-card__header">
+          <div>
+            <h2 id="results-title">Run predictions</h2>
+            <p>Predicted species compared with the labeled sample.</p>
+          </div>
+          <span className="result-count">{results.length} results</span>
+        </div>
+
+        <div className="table-wrap usa-card__body">
+          <table
+            className="usa-table usa-table--striped"
+            aria-label="Fish identification results"
+          >
+            <thead>
+              <tr>
+                <th scope="col">Fish ID</th>
+                <th scope="col">Actual species</th>
+                <th scope="col">Predicted species</th>
+                <th scope="col">Length</th>
+                <th scope="col">Confidence</th>
+                <th scope="col">Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              {results.map((result) => (
+                <tr key={result.fishId}>
+                  <td className="fish-id">{result.fishId}</td>
+                  <td>{formatSpecies(result.actualSpecies)}</td>
+                  <td>{formatSpecies(result.predictedSpecies)}</td>
+                  <td>
+                    {result.length} {result.lengthUnit}
+                  </td>
+                  <td>
+                    {result.confidence === null
+                      ? '—'
+                      : `${(result.confidence * 100).toFixed(0)}%`}
+                  </td>
+                  <td>
+                    <span
+                      className={`usa-tag result-pill ${
+                        result.isCorrect ? 'is-correct' : 'is-incorrect'
+                      }`}
+                    >
+                      {result.isCorrect ? 'Correct' : 'Incorrect'}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default ResultsPanels;
