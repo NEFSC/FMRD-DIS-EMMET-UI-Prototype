@@ -52,6 +52,8 @@ function AggregatePanel({
   errorCount,
 }: AggregatePanelProps) {
   const totalCount = correctCount + incorrectCount + errorCount;
+  const getSegmentWidth = (count: number) =>
+    totalCount ? `${(count / totalCount) * 100}%` : '0%';
 
   return (
     <section
@@ -77,15 +79,15 @@ function AggregatePanel({
           >
             <span
               className="aggregate-bar-correct"
-              style={{ width: `${(correctCount / totalCount) * 100}%` }}
+              style={{ width: getSegmentWidth(correctCount) }}
             />
             <span
               className="aggregate-bar-incorrect"
-              style={{ width: `${(incorrectCount / totalCount) * 100}%` }}
+              style={{ width: getSegmentWidth(incorrectCount) }}
             />
             <span
               className="aggregate-bar-error"
-              style={{ width: `${(errorCount / totalCount) * 100}%` }}
+              style={{ width: getSegmentWidth(errorCount) }}
             />
           </div>
           <div className="aggregate-legend">
