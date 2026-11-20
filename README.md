@@ -51,7 +51,7 @@ results file keeps the API contract shape. Synthetic run durations are in
 is calculated from submissions where the model could not make an inference.
 Fail rate is calculated from incorrect predictions among successful
 inferences. Each selected run displays PASS at 85% accuracy or higher,
-otherwise FAIL. Data is synthetic. The UI includes an administrator view with
+otherwise it displays FAIL. Data is synthetic. The UI includes an administrator view with
 fish-level results and separate Cvision and IM views with aggregate
 correct/incorrect counts. The view switch is for prototyping and is not an
 authentication or authorization mechanism.
