@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import AppFooter from './components/AppFooter';
 import AppHeader from './components/AppHeader';
 import ResultsPanels from './components/ResultsPanels';
@@ -50,15 +50,24 @@ function App() {
   const [selectedRunId, setSelectedRunId] = useState(initialRunId);
   const selectedModelId =
     viewMode === 'administrator' ? administratorModelId : viewMode;
-  const modelRuns = batches.filter((batch) =>
-    batch.run_id.startsWith(`batch_9942_${selectedModelId}_run_`),
+  const modelRuns = useMemo(
+    () =>
+      batches.filter((batch) =>
+        batch.run_id.startsWith(`batch_9942_${selectedModelId}_run_`),
+      ),
+    [selectedModelId],
   );
-  const selectedModel = models.find(
-    (model) => model.id === selectedModelId,
+  const selectedModel = useMemo(
+    () => models.find((model) => model.id === selectedModelId),
+    [selectedModelId],
   );
-  const selectedRun = modelRuns.find((batch) => batch.run_id === selectedRunId);
-  const selectedRunMetrics = runMetrics.find(
-    (metrics) => metrics.run_id === selectedRunId,
+  const selectedRun = useMemo(
+    () => modelRuns.find((batch) => batch.run_id === selectedRunId),
+    [modelRuns, selectedRunId],
+  );
+  const selectedRunMetrics = useMemo(
+    () => runMetrics.find((metrics) => metrics.run_id === selectedRunId),
+    [selectedRunId],
   );
 
   if (!selectedModel || !selectedRun || !selectedRunMetrics) {
@@ -67,48 +76,75 @@ function App() {
     );
   }
 
-  const results: ResultRow[] = selectedRun.submissions.map((submission) => {
-    const label = labelsBySubmissionId.get(submission.submission_id);
+  const results = useMemo<ResultRow[]>(
+    () =>
+      selectedRun.submissions.map((submission) => {
+        const label = labelsBySubmissionId.get(submission.submission_id);
 
-    if (!label) {
-      throw new Error(
-        `Submission references unknown ID "${submission.submission_id}".`,
-      );
-    }
+        if (!label) {
+          throw new Error(
+            `Submission references unknown ID "${submission.submission_id}".`,
+          );
+        }
 
-    const length = getResult(submission.results, 'length');
-    const hasInferenceError = submission.errors.length > 0;
-    const species = hasInferenceError
-      ? undefined
-      : getResult(submission.results, 'species');
+        const length = getResult(submission.results, 'length');
+        const hasInferenceError = submission.errors.length > 0;
+        const species = hasInferenceError
+          ? undefined
+          : getResult(submission.results, 'species');
+
+        return {
+          fishId: label.fish_id,
+          actualSpecies: label.actual_species,
+          predictedSpecies: species?.classification ?? null,
+          confidence: species?.confidence_score ?? null,
+          length: length.length,
+          lengthUnit: length.unit,
+          isCorrect:
+            !hasInferenceError &&
+            species?.classification === label.actual_species,
+          hasInferenceError,
+        };
+      }),
+    [selectedRun],
+  );
+  const {
+    accuracy,
+    correctCount,
+    errorCount,
+    errorRate,
+    failRate,
+    incorrectCount,
+    successfulResults,
+  } = useMemo(() => {
+    const errorCount = results.filter(
+      (result) => result.hasInferenceError,
+    ).length;
+    const successfulResults = results.length - errorCount;
+    const correctCount = results.filter(
+      (result) => !result.hasInferenceError && result.isCorrect,
+    ).length;
+    const incorrectCount = successfulResults - correctCount;
+    const accuracy = successfulResults
+      ? (correctCount / successfulResults) * 100
+      : 0;
+    const failRate = successfulResults
+      ? (incorrectCount / successfulResults) * 100
+      : 0;
+    const errorRate = results.length
+      ? (errorCount / results.length) * 100
+      : 0;
 
     return {
-      fishId: label.fish_id,
-      actualSpecies: label.actual_species,
-      predictedSpecies: species?.classification ?? null,
-      confidence: species?.confidence_score ?? null,
-      length: length.length,
-      lengthUnit: length.unit,
-      isCorrect:
-        !hasInferenceError && species?.classification === label.actual_species,
-      hasInferenceError,
+      accuracy,
+      correctCount,
+      errorCount,
+      errorRate,
+      failRate,
+      incorrectCount,
+      successfulResults,
     };
-  });
-  const errorCount = results.filter((result) => result.hasInferenceError).length;
-  const successfulResults = results.length - errorCount;
-  const correctCount = results.filter(
-    (result) => !result.hasInferenceError && result.isCorrect,
-  ).length;
-  const incorrectCount = successfulResults - correctCount;
-  const accuracy = successfulResults
-    ? (correctCount / successfulResults) * 100
-    : 0;
-  const failRate = successfulResults
-    ? (incorrectCount / successfulResults) * 100
-    : 0;
-  const errorRate = results.length
-    ? (errorCount / results.length) * 100
-    : 0;
+  }, [results]);
 
   const handleViewChange = (view: ViewMode) => {
     const modelId = view === 'administrator' ? administratorModelId : view;
